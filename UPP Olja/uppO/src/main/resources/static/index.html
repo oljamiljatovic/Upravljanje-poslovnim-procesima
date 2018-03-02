@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title>Upravljanje poslovnim procesima</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+        <script src="/js/registar.js"></script>
+        <link rel="stylesheet" type="text/css" href="/css/site.css">
+    </head>
+    <body>
+			<input type="button" class="btn btn-primary" id="showRegistration"  value="Registration">
+			<input type="button" class="btn btn-primary" id="logOut"  value="Log out">
+			<div id="logInDiv" class="col-sm-offset-3 col-sm-5 centeredDiv">
+				<div class="form-group">
+							<label class="col-sm-7">Username :</label>
+							<div class="col-sm-9">	
+								<input type="text" id="username" class="form-control" value="olja" />
+							</div>
+				</div>
+				<div class="form-group">
+							<label class="col-sm-7">Password :</label>
+							<div class="col-sm-9">	
+								<input type="text" id="passwordLogIn" class="form-control" value="oljaolja" />
+							</div>
+				</div>
+			
+					<div class="col-sm-12">	
+							<div >
+								<input type="button" class="btn btn-primary" id="logIn"  value="Log in">				
+							</div>			
+						</div>
+					
+			</div>
+			
+			<div id="registraionDiv" class="row hiddenDiv">
+				<form id="registraionForm" class="col-sm-offset-3 col-sm-5">
+					<fieldset id = "fieldSetForm">
+					 <input type="hidden" id = "longitude" >
+					 <input type="hidden" id = "latitude" >
+					 <input type="hidden" id = "randomKey" >
+					 
+					    <legend>Registar form</legend>
+						<div class="form-group">
+							<label class="col-sm-3">Name :</label>
+							<div class="col-sm-9">	
+								<input type="text" id="name" class="form-control" value="Olja" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3">User name :</label>
+							<div class="col-sm-9">	
+								<input type="text" id="userName" class="form-control" value="olja" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3">Password :</label>
+							<div class="col-sm-9">	
+								<input type="password" id="password" class="form-control" value="oljaolja" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3">E-mail :</label>
+							<div class="col-sm-9">	
+								<input type="email" id="email" class="form-control" value="oljicamiljatovic@gmail.com" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3">Address :</label>
+							<div class="col-sm-9">	
+								<input type="text" id="address" class="form-control" value="Karadjordjeva" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3">City :</label>
+							<div class="col-sm-9">	
+								<input type="text" id="city" class="form-control" value="Novi Sad" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3">Post number :</label>
+							<div class="col-sm-9">	
+								<input type="text" id="postNumber" class="form-control" value="15320" />
+							</div>
+						</div>
+
+						<div class="form-group" id = "roleDiv">
+							<label class="col-sm-3">Role :</label>
+							<div class="col-sm-9">	
+								<select class="form-control" id="role"  >
+									<option value=1>User</option>
+									<option value=2 >Company</option>
+								</select>
+							</div>
+						</div>
+
+
+						
+						<br><br>
+						<div class="col-sm-12">	
+							<div class="text-right">
+								<button type="submit" class="btn btn-primary" id="submitSave" >Save</button>					
+							</div>			
+						</div>
+						
+						
+						<div class="col-sm-12">	
+							<div class="text-right">
+							<input type="button" class="btn btn-primary hiddenButton" id="buttonSave"  value="Save">
+												
+							</div>			
+						</div>
+						
+					</fieldset>
+				</form>
+			</div>	
+	</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+
+<script src="/js/offer.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/site.css">
+
+</head>
+<body>
+ 	<input type="button" class="btn btn-primary" id="logOut" value="Log out"> <!--Treba dodati akciju na logout -->
+
+	<div id="taskDiv">
+		<p> Your tasks : </p>
+			<table id = "tableOfTasks">
+				<th> Task name </th>
+			</table>
+	</div>
+
+	<div id = "requestFromTaskDiv" class = "row hiddenDiv">
+		<table id = "requestFromTaskTable">
+				<th> Job category</th>
+				<th> Description</th>
+				<th> Max valuation</th>
+				<th> Time limit for carry out</th>
+				<th> User</th>
+		</table>
+	</div>
+	
+	<div id="fillOfferDiv" class="row hiddenDiv centeredDiv ">
+		<form id="registraionForm" class="col-sm-offset-3 col-sm-5">
+			<fieldset id="fieldSetForm">
+
+			<input type="hidden" id="idRequestFillOfferDiv">
+			<input type="hidden" id="idTaskFillOfferDiv">
+
+				<legend>Fill the offer</legend>
+				<div class="form-group" id = "roleDiv">
+					<label class="col-sm-7">Price :</label>
+					<div class="col-sm-9">	
+						<input type="text" id="priceFillOfferDiv" value="345"  >
+						</select>
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<label class="col-sm-7">Time limit :</label>
+					<div class="col-sm-9">
+						<input type="date" id="timeLimitFillOfferDiv" class="form-control"
+							value="2013-01-08" />
+					</div>
+				</div>
+
+				<br/><br/>
+
+				<div class="col-sm-12">
+					<div class="text-right">
+						<input type="button" class="btn btn-primary " id="sendOffer"
+							value="Send offer">
+
+					</div>
+				</div>
+
+			</fieldset>
+		</form>
+	</div>
+
+	<input  type = "text" disabled id = "rankLabel" class = "hiddenButton"></label>
+	<div class="centeredDiv hiddenDiv" id="finalDecisionDiv">
+	
+	<p> Do you want to forward your offer </p>
+		<div class="col-sm-7">
+			<div class="text-right">
+				<input type="hidden" id = "taskIdFinalDesicionDiv" > 
+ 				<input type="hidden" id = "taskNameFinalDesicionDiv" > 
+				<input type="button" class="btn btn-primary " id="confirmFinalOffer" value="Confirm" >
+				<input type="button" class="btn btn-primary " id="returnToCorrection" value="Return">
+			</div>
+		</div>
+	
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Request for Service</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+
+<script src="/js/requestForService.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/site.css">
+
+</head>
+<body>
+	<input type="button" class="btn btn-primary" id="logOut" value="Log out">
+	<input type="button" class="btn btn-primary" id="fillRequest" value="Add request">
+
+	<div id="taskDiv">
+	<p> Your tasks : </p>
+		<table id = "tableOfTasks">
+			<th> Task name </th>
+		</table>
+	</div>
+
+
+
+	<div id="requestDiv" class="row hiddenDiv ">
+		<form id="registraionForm" class="col-sm-offset-3 col-sm-5">
+			<fieldset id="fieldSetForm">
+
+				<legend>Request for auction</legend>
+				<div class="form-group" id = "roleDiv">
+					<label class="col-sm-7">Category :</label>
+					<div class="col-sm-9">	
+						<select class="form-control" id="jobCategoryID"  >
+						</select>
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<label class="col-sm-7">Description :</label>
+					<div class="col-sm-9">
+						<input type="text" id="description" class="form-control"
+							value="opis" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-7">max procjena vrijednosti :</label>
+					<div class="col-sm-9">
+						<input type="input" id="maxValuation" class="form-control"
+							value="3456" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-7">rok za primanje ponude :</label>
+					<div class="col-sm-9">
+						<input type="date" id="timeLimitForOffers" class="form-control"
+							value="2013-01-08" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-7">broj max ponuda :</label>
+					<div class="col-sm-9">
+						<input type="text" id="maxNumberOffers" class="form-control"
+							value="23" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-7">rok za obavljanje usluge :</label>
+					<div class="col-sm-9">
+						<input type="date" id="timeLimitForCarryOut" class="form-control"
+							value="2013-01-08" />
+					</div>
+				</div>
+
+
+
+				<br>
+				<br>
+
+
+				<div class="col-sm-12">
+					<div class="text-right">
+						<input type="button" class="btn btn-primary " id="sendRequest"
+							value="Send request">
+
+					</div>
+				</div>
+
+			</fieldset>
+		</form>
+	</div>
+	
+	<div class="centeredDiv hiddenDiv" id="chooseDiv">
+	<p> Do you want to forward request to companies even if there is not enough number of companies? </p>
+		<div class="col-sm-7">
+			<div class="text-right">
+				<input type="hidden" id = "requestID" >
+				<input type="hidden" id = "taskIdChooseDiv" >
+				<input type="hidden" id = "taskNameChooseDiv" >
+				<input type="button" class="btn btn-primary " id="confirmNotEnoughCompanies" value="Confirm" >
+				<input type="button" class="btn btn-primary " id="rejectNotEnoughCompanies" value="Reject">
+			</div>
+		</div>
+	
+	</div>
+
+</body>
+</html>
