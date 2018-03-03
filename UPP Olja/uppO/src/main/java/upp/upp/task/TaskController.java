@@ -86,6 +86,47 @@ public class TaskController {
 		return request;
 	}	
 	
+	@PostMapping("/cancelAllOffers")
+	public void cancelAllOffers(@RequestBody MockTask mockTask) {
+	
+		HashMap<String, Object> variables=new HashMap<>();
+		Task task = taskService.createTaskQuery().active().taskId(mockTask.getId()).list().get(0);
+		variables =(HashMap<String, Object>) runtimeService.getVariables(task.getProcessInstanceId());
+		variables.put("rangDecision", 0);
+		
+		taskService.complete(task.getId(),variables);
+		
+	}
+	
+	
+
+	@PostMapping("/chooseRepeatProcess")
+	public void chooseRepeatProcess(@RequestBody MockTask mockTask) {
+	
+		HashMap<String, Object> variables=new HashMap<>();
+		Task task = taskService.createTaskQuery().active().taskId(mockTask.getId()).list().get(0);
+		variables =(HashMap<String, Object>) runtimeService.getVariables(task.getProcessInstanceId());
+		
+		variables.put("rangDecision", 2);
+		taskService.complete(task.getId(),variables);
+		
+	}
+	
+	@PostMapping("/repeatProcess")
+	public void repeatProcess(@RequestBody MockTaskDate mockTask) {
+	
+		HashMap<String, Object> variables=new HashMap<>();
+		Task task = taskService.createTaskQuery().active().taskId(mockTask.getId()).list().get(0);
+		variables =(HashMap<String, Object>) runtimeService.getVariables(task.getProcessInstanceId());
+		RequestForFavour request = (RequestForFavour) variables.get("request");
+		request.setTimeLimitForOffers(mockTask.getDate());
+		variables.put("request", request);
+		
+		
+		taskService.complete(task.getId(),variables);
+		
+	}
+	
 	private User getUserFromSession() {
 		ServletRequestAttributes attr = (ServletRequestAttributes) 
 			    RequestContextHolder.currentRequestAttributes();

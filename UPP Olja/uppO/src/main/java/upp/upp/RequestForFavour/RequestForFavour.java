@@ -68,6 +68,7 @@ public class RequestForFavour {
 		this.maxNumberOffers = dto.getMaxNumberOffers();
 		this.timeLimitForCarryOut = dto.getTimeLimitForCarryOut();
 		this.user = user;
+		this.selectedCompanies  =  new ArrayList<>();
 		this.offers = new ArrayList<>();
 		
 	

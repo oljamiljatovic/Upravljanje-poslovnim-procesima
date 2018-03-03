@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 
 import lombok.Data;
 import upp.upp.RequestForFavour.RequestForFavour;
+import upp.upp.user.User;
 
 @Data
 @Entity
@@ -31,6 +32,9 @@ public class Offer {
 	@JoinColumn(name="REQUEST_ID")
 	private RequestForFavour request;
 	
+	@ManyToOne
+	@JoinColumn(name="COMPANY_ID")
+	private User company;
 
 	public Offer() {
 		

@@ -31,8 +31,6 @@
 		</table>
 	</div>
 
-
-
 	<div id="requestDiv" class="row hiddenDiv ">
 		<form id="registraionForm" class="col-sm-offset-3 col-sm-5">
 			<fieldset id="fieldSetForm">
@@ -119,5 +117,82 @@
 	
 	</div>
 
+<div class="centeredDiv hiddenDiv" id="decideOrExtendNotEnoughDiv">
+	<p> Do you want to decide about offers </p>
+		<div class="col-sm-7">
+			<div class="text-right">
+				<input type="hidden" id = "taskIdDecideOrExtend" >
+				<input type="hidden" id = "taskNameDecideOrExtend" >
+				<input type="button" class="btn btn-primary " id="decide" value="Decide" >
+				<input type="button" class="btn btn-primary " id="askForMore" value="AskForMore">
+			</div>
+		</div>
+	
+	</div>
+	
+	<div class="centeredDiv hiddenDiv" id="dateNotEnoughDiv">
+	<p> Please choose date</p>
+		<div class="col-sm-7">
+			<div class="text-right">
+				<input type="hidden" id = "taskIdDateNotEnough" >
+				<input type="hidden" id = "taskNameDateNotEnough" >
+				<input type="date" class="form-control" id="dateNotEnough" value="2013-01-08" >
+				<input type="button" class="btn btn-primary " id="sendDateNotEnough" value="AskForMore">
+			</div>
+		</div>
+	
+	</div>
+	
+	<div class="centeredDiv hiddenDiv" id="cancelOrExtendDiv">
+	<p> Do you want to decide about offers </p>
+		<div class="col-sm-7">
+			<div class="text-right">
+				<input type="hidden" id = "taskIdNoOffers" >
+				<input type="hidden" id = "taskNameNoOffers" >
+				<input type="button" class="btn btn-primary " id="cancel" value="Cancel" >
+				<input type="button" class="btn btn-primary " id="askForMoreOffers" value="AskForMore">
+			</div>
+		</div>
+	
+	</div>
+	
+	<div class="centeredDiv hiddenDiv" id="dateNoOffersDiv">
+	<p> Please choose date</p>
+		<div class="col-sm-7">
+			<div class="text-right">
+				<input type="hidden" id = "taskIdDateNoOffers" >
+				<input type="hidden" id = "taskNameDateNoOffers" >
+				<input type="date" class="form-control" id="dateNoOffers" value="2013-01-08" >
+				<input type="button" class="btn btn-primary " id="sendDateNoOffers" value="AskForMore">
+			</div>
+		</div>
+	
+	</div>
+	
+	
+	<div id="rangListDiv" class="centeredDiv hiddenDiv">
+		<input type="hidden" id = "taskIdRangDiv" >
+		<input type="hidden" id = "taskNameRangDiv" >
+		<table id="rangList">
+		<th>Time limit</th> <th> Price </th> <th>Company </th>
+		</table>
+		<input type="button" class="btn btn-primary " id="cancelAllRangDiv" value="Cancel all">
+		<input type="button" class="btn btn-primary " id="openDateForRepeatProcess" value="Repeat process">
+			
+	</div>
+	
+	
+		<div class="centeredDiv hiddenDiv" id="dateRepeatProcessDiv">
+		<p> Please choose date</p>
+		<div class="col-sm-7">
+			<div class="text-right">
+				<input type="hidden" id = "taskIdDateRepeatProcess" >
+				<input type="hidden" id = "taskNameDateRepeatProcess" >
+				<input type="date" class="form-control" id="dateRepeatProcess" value="2013-01-08" >
+				<input type="button" class="btn btn-primary " id="sendDateRepeatProcess" value="AskForMore">
+			</div>
+		</div>
+	
+	</div>
 </body>
 </html>

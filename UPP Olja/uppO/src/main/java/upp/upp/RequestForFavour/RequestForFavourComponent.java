@@ -40,7 +40,7 @@ public class RequestForFavourComponent {
 	@Autowired
 	private RuntimeService runtimeService;
 	
-	public List<User> createListOfCompanies(RequestForFavour request) {
+	public List<User> createListOfCompanies(RequestForFavour request, String processInstanceId) {
 		
 		List<User> users = userService.findAll();
 		
@@ -55,6 +55,12 @@ public class RequestForFavourComponent {
 			}
 		}
 		
+		
+		if(request.getSelectedCompanies().size() != 0) {
+			foundedUsers.removeAll(request.getSelectedCompanies());
+		}
+		
+		/*smanjivanje broja*/
 		List<User> lista = new ArrayList<>();
 		if(foundedUsers.size() > request.getMaxNumberOffers()) {
 			lista =  getRandomCompanies(foundedUsers, request.getMaxNumberOffers());
@@ -69,9 +75,12 @@ public class RequestForFavourComponent {
 		temp.setSelectedCompanies(lista);
 		temp = requestForFavourService.save(temp);
 		
-		Task t= taskService.createTaskQuery().active().list().get(0);
-		taskService.setVariable(t.getId(), "request", temp);
-		taskService.setVariable(t.getId(), "lista", lista);
+		
+		//Task t= taskService.createTaskQuery().active().list().get(0);
+		variables = (HashMap<String, Object>) runtimeService.getVariables(processInstanceId);
+		variables.put("request", temp);
+		variables.put("lista",lista);
+		
 		
 		return lista;
 	}

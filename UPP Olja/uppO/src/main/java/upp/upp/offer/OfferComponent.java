@@ -1,5 +1,6 @@
 package upp.upp.offer;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import upp.upp.OfferComparator;
 import upp.upp.RequestForFavour.RequestForFavour;
 import upp.upp.RequestForFavour.RequestForFavourService;
 import upp.upp.user.User;
@@ -71,6 +73,12 @@ public class OfferComponent {
 	/*funkcija koja ce izracunavati rank na osnovu ponuda*/
 	private int getRank() {
 		return 2;
+	}
+	
+	public void rankingAllOffers(List<Offer> offers, RequestForFavour request, String processInstanceId) {
+		Collections.sort(offers, new OfferComparator());
+		//dopuniti sa sortiranjem po cijeni
+		System.out.println("sortiranje....");
 	}
 	
 	private User getUserFromSession() {

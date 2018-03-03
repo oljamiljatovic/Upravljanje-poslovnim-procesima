@@ -13,6 +13,8 @@ public class OfferDTO implements Serializable {
 	private Date timeLimit;
 	
 	private double price;
+
+	private long idCompany;
 	
 	public OfferDTO() {
 		
