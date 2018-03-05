@@ -81,6 +81,10 @@ public class OfferComponent {
 		System.out.println("sortiranje....");
 	}
 	
+	public void neka() {
+		System.out.println("Funkcija koja se poziva kada se ne trazi requirement");
+	}
+	
 	private User getUserFromSession() {
 		ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
 		HttpSession session= attr.getRequest().getSession(true);

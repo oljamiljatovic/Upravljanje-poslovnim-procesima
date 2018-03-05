@@ -189,10 +189,24 @@
 				<input type="hidden" id = "taskIdDateRepeatProcess" >
 				<input type="hidden" id = "taskNameDateRepeatProcess" >
 				<input type="date" class="form-control" id="dateRepeatProcess" value="2013-01-08" >
-				<input type="button" class="btn btn-primary " id="sendDateRepeatProcess" value="AskForMore">
+				<input type="button" class="btn btn-primary " id="sendDateRepeatProcess" value="Ask for more">
 			</div>
 		</div>
-	
+		</div>
+	<div class="centeredDiv hiddenDiv" id="requiredExplainDiv">
+		<p> If you want, write your requirements and send to company, if not, click Accept without requirements</p>
+		<div class="col-sm-7">
+			<div class="text-right">
+				<input type="hidden" id = "taskIdRequiredExplain" >
+				<input type="hidden" id = "offerIdRequiredExplain" >
+				
+				<textarea rows="10" cols="30" id = "textArea"></textarea>
+				
+				<input type="button" class="btn btn-primary " id="withoutRequiredExplain" value="Accept without requirements">
+				<input type="button" class="btn btn-primary " id="sendRequiredExplain" value="Send to company">
+			</div>
+		</div>
+
 	</div>
 </body>
 </html>

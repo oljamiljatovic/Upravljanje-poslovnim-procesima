@@ -297,6 +297,56 @@ $(document).on('click', '#sendDateRepeatProcess', function(e) {
 });
 
 
+$(document).on('click', '#sendRequiredExplain', function(e) {
+	
+	var taskId = $("#taskIdRequiredExplain").val();
+	var offerId = $("#offerIdRequiredExplain").val();
+	var text  = $("#textArea").val();
+	
+	task = {}
+	task.taskId = taskId;
+	task.offerId = offerId;
+	task.text = text;
+	$.ajax({
+        url: "/task/sendRequiredExplain",
+        type: 'POST',
+        data: JSON.stringify(task),
+        contentType: "application/json"
+    }).done(function() {
+    	alert("send required");
+    	/*$("#dateRepeatProcessDiv").removeClass("hiddenDiv");
+    	document.location.reload();*/
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        showErrors(errorThrown)
+    })
+});
+
+
+$(document).on('click', '#withoutRequiredExplain', function(e) {
+	
+	var taskId = $("#taskIdRequiredExplain").val();
+	var offerId = $("#offerIdRequiredExplain").val();
+	
+	
+	task = {}
+	task.taskId = taskId;
+	task.offerId = offerId;
+
+	$.ajax({
+        url: "/task/withoutRequiredExplain",
+        type: 'POST',
+        data: JSON.stringify(task),
+        contentType: "application/json"
+    }).done(function() {
+    	alert("without");
+    	/*$("#dateRepeatProcessDiv").removeClass("hiddenDiv");
+    	document.location.reload();*/
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        showErrors(errorThrown)
+    })
+});
+/////////////////////////////////////////////////////
+
 function showErrors(errors) {
     toastr.error(errors, "Errors");
 }
@@ -327,6 +377,24 @@ function openTask(id,name) {
     	$("#taskIdDateRepeatProcess").val(id);
     	$("#taskNameDateRepeatProcess").val(name);
     	$("#dateRepeatProcessDiv").removeClass("hiddenDiv");
+    }else if(name == "Require explain"){
+    	 $("#requiredExplainDiv").removeClass("hiddenDiv");
+    	 $("#taskIdRequiredExplain").val(id);
+    	 
+    	 $.ajax({
+ 	        url: "/task/getCurrentOfferFromTask/"+id,
+ 	        type: 'GET',
+ 	        dataType :"json",
+ 	    }).done(function(data) {
+ 	    	alert("dobio offer id");
+ 	    	 $("#offerIdRequiredExplain").val(data.id);
+ 	    	
+ 	    	//document.location.reload();
+ 	    }).fail(function (jqXHR, textStatus, errorThrown) {
+ 	        showErrors(errorThrown)
+ 	    })
+    	 
+    	
     }
     
 } 
@@ -341,7 +409,6 @@ function fillRangList(id,name){
         data: JSON.stringify(task),
         contentType: "application/json"
     }).done(function (data) {
-    	alert("data ima " + data.length);
     	var tableRef = document.getElementById("rangList");
      	 for (i = 0; i < data.length; i++) { 
      		 var newRow1 = tableRef.insertRow(i+1);
@@ -362,7 +429,8 @@ function fillRangList(id,name){
            	 var newCell4 = newRow1.insertCell(3);
            	 var input = document.createElement('input');
            	 input.setAttribute("type", "button");
-           	 input.setAttribute("onClick", 'choosenOfferFromRangList('+id+',"'+data.id+'")');
+           	 var dataId = data[i].id;
+           	 input.setAttribute("onClick", 'choosenOfferFromRangList('+id+',"'+dataId+'")');
            	 input.setAttribute("value", "Pregled");
            	 input.setAttribute("class", "btn btn-primary");
            	 newCell4.appendChild(input);
@@ -375,5 +443,22 @@ function fillRangList(id,name){
 	
 }
  function choosenOfferFromRangList(taskId, offerId){
-	 alert("choosen one");
+	//treba pozvati ajax da bi uopste postavio na dalji task
+	 
+	 taskOffer = {}
+	 taskOffer.taskId = taskId;
+	 taskOffer.offerId = offerId;
+		 
+	 $.ajax({
+	        url: "/task/openRequiredExplainTask",
+	        type: 'POST',
+	        data: JSON.stringify(taskOffer),
+	        contentType: "application/json"
+	    }).done(function() {
+	    	//document.location.reload();
+	    }).fail(function (jqXHR, textStatus, errorThrown) {
+	        showErrors(errorThrown)
+	    }) 
+	 
  }
+ 

@@ -47,7 +47,7 @@ $(document).on('click', '#sendOffer', function(e) {
 		data: JSON.stringify(offer),
         contentType: "application/json"
 	}).done(function (data) {
-		alert(data);
+	
 		/*var parent = document.getElementById("jobCategoryID");
 		for(var i = 0; i < data.length; i++) {
 		    var opt = document.createElement('option');
@@ -79,7 +79,7 @@ $(document).on('click', '#confirmFinalOffer', function(e) {
 		data: JSON.stringify(task),
         contentType: "application/json"
 	}).done(function (data) {
-		alert("confirm final offer");
+		
 		/*var parent = document.getElementById("jobCategoryID");
 		for(var i = 0; i < data.length; i++) {
 		    var opt = document.createElement('option');
@@ -108,7 +108,7 @@ $(document).on('click', '#returnToCorrection', function(e) {
 		data: JSON.stringify(task),
         contentType: "application/json"
 	}).done(function (data) {
-		alert("return to corection");
+	
 		/*var parent = document.getElementById("jobCategoryID");
 		for(var i = 0; i < data.length; i++) {
 		    var opt = document.createElement('option');
@@ -146,7 +146,10 @@ function openTask(id,name) {
     	$("#taskIdFinalDesicionDiv").val(id);
     	$("#taskNameFinalDesicionDiv").val(name);
     	
+    }else if(name == "Fill requirement"){
+    	alert("FILL REQUIREMENT");
     }
+    
 }
 
 function fillRequestFormTask(id){
@@ -202,7 +205,7 @@ function fillRequestFormTask(id){
 }
 
 function fillOfferDiv(idRequest, idTask){
-	alert("Fill offerdiv");
+	
 	$("#fillOfferDiv").removeClass("hiddenDiv");	
 	$("#idRequestFillOfferDiv").val(idRequest);
 	$("#idTaskFillOfferDiv").val(idTask);

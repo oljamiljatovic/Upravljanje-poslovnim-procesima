@@ -36,6 +36,7 @@ public class Offer {
 	@JoinColumn(name="COMPANY_ID")
 	private User company;
 
+
 	public Offer() {
 		
 	}

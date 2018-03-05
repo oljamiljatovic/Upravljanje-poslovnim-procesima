@@ -55,6 +55,7 @@ public class RequestForFavour {
 	@OneToMany(cascade=CascadeType.ALL) 
 	private List<Offer> offers;
 	
+
 	
 	public RequestForFavour() {
 		

@@ -19,12 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.squareup.okhttp.Request;
-
 import upp.upp.RequestForFavour.RequestForFavour;
 import upp.upp.RequestForFavour.RequestForFavourService;
 import upp.upp.jobCategory.JobCategoryService;
-import upp.upp.user.MockUser;
+import upp.upp.offer.Offer;
+import upp.upp.offer.OfferService;
 import upp.upp.user.User;
 
 @RestController
@@ -43,6 +42,8 @@ public class TaskController {
 	@Autowired
 	private JobCategoryService jobCategoryService;
 	
+	@Autowired
+	private OfferService offerService;
 	
 	@GetMapping("/getTaskForUser")
 	public List<MockTask> getTaskForUser() {
@@ -126,6 +127,71 @@ public class TaskController {
 		taskService.complete(task.getId(),variables);
 		
 	}
+	
+	@PostMapping("/openRequiredExplainTask")
+	public void openRequiredExplainTask(@RequestBody MockTaskOffer mockTask) {
+	
+		HashMap<String, Object> variables=new HashMap<>();
+		Task task = taskService.createTaskQuery().active().taskId(mockTask.getTaskId()).list().get(0);
+		variables =(HashMap<String, Object>) runtimeService.getVariables(task.getProcessInstanceId());
+		
+		
+		Offer currentOffer = offerService.findOne(mockTask.getOfferId());
+		variables.put("currentOffer", currentOffer);
+		
+		variables.put("rangDecision", 1);
+		taskService.complete(task.getId(),variables);
+		
+	}
+	
+	@PostMapping("/sendRequiredExplain")
+	public void sendRequiredExplainTask(@RequestBody MockTaskOffer mockTask) {
+		
+		HashMap<String, Object> variables=new HashMap<>();
+		Task task = taskService.createTaskQuery().active().taskId(mockTask.getTaskId()).list().get(0);
+		variables =(HashMap<String, Object>) runtimeService.getVariables(task.getProcessInstanceId());
+		
+		
+		Offer currentOffer = offerService.findOne(mockTask.getOfferId());
+		String text = mockTask.getText();
+		variables.put("companyForRequirement", currentOffer.getCompany().getId());
+		variables.put("requiredRequirement", 1);
+		
+		
+		taskService.complete(task.getId(),variables);
+		
+	}
+	
+	@PostMapping("/withoutRequiredExplain")
+	public void withoutRequiredExplain(@RequestBody MockTaskOffer mockTask) {
+	
+		HashMap<String, Object> variables=new HashMap<>();
+		Task task = taskService.createTaskQuery().active().taskId(mockTask.getTaskId()).list().get(0);
+		variables =(HashMap<String, Object>) runtimeService.getVariables(task.getProcessInstanceId());
+		
+		
+		Offer currentOffer = offerService.findOne(mockTask.getOfferId());
+		
+		variables.put("companyForRequirement", currentOffer.getCompany().getId());
+		variables.put("requiredRequirement", 0);
+		
+		
+		taskService.complete(task.getId(),variables);
+		
+	}
+	
+	@GetMapping("/getCurrentOfferFromTask/{id}")
+	public Offer getCurrentOfferFromTask(@PathVariable String id) {
+	
+		HashMap<String, Object> variables=new HashMap<>();
+		Task task = taskService.createTaskQuery().active().taskId(id).list().get(0);
+		variables =(HashMap<String, Object>) runtimeService.getVariables(task.getProcessInstanceId());
+		
+		Offer  currentOffer = (Offer) variables.get("currentOffer");
+		
+		return currentOffer;
+	}
+	
 	
 	private User getUserFromSession() {
 		ServletRequestAttributes attr = (ServletRequestAttributes) 
