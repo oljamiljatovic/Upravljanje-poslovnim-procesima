@@ -125,6 +125,93 @@ $(document).on('click', '#returnToCorrection', function(e) {
 		showErrors(errorThrown)
 	})
 });
+
+$(document).on('click', '#confirmExplanation', function(e) {
+	taskOffer = {}
+	taskOffer.taskId =  $("#taskIdFillRequiremenDiv").val();
+	taskOffer.offerId = $("#offerIdFillRequirement").val();
+	taskOffer.text = $("#textAreaResponse").val(); 
+
+	$.ajax({
+		url: "/task/confirmExplanation",
+		type: 'POST',
+		data: JSON.stringify(taskOffer),
+        contentType: "application/json"
+	}).done(function (data) {
+	
+	alert("Poslao svoj odgovor");
+	document.location.reload();
+		
+	}).fail(function (jqXHR, textStatus, errorThrown) {
+		showErrors(errorThrown)
+	})
+});
+
+
+$(document).on('click', '#sendTimeStart', function(e) {
+	taskDate = {}
+	taskDate.id =  $("#taskIdDeterminationTimeStart").val();
+	taskDate.name = $("#taskNameDeterminationTimeStart").val();
+	taskDate.date = $("#dateDeterminationTimeStart").val(); 
+
+	$.ajax({
+		url: "/task/determinationTimeStart",
+		type: 'POST',
+		data: JSON.stringify(taskDate),
+        contentType: "application/json"
+	}).done(function () {
+	
+		alert("Poslao datum kada pocinje");
+		document.location.reload();
+		
+	}).fail(function (jqXHR, textStatus, errorThrown) {
+		showErrors(errorThrown)
+	})
+});
+
+$(document).on('click', '#confirmEndExecution', function(e) {
+	task = {}
+	task.id =  $("#taskIdEndExecutionDiv").val();
+	task.name = $("#taskNameEndExecutionDiv").val();
+
+
+	$.ajax({
+		url: "/task/confirmEndExecution",
+		type: 'POST',
+		data: JSON.stringify(task),
+        contentType: "application/json"
+	}).done(function () {
+	
+		alert("Potvrdio uradjen posao");
+		document.location.reload();
+		
+	}).fail(function (jqXHR, textStatus, errorThrown) {
+		showErrors(errorThrown)
+	})
+});
+
+$(document).on('click', '#rateClient', function(e) {
+	task = {}
+	task.id =  $("#taskIdRatingClient").val();
+	task.name = $("#taskNameRatingClient").val();
+
+	var ocjena = $('input[name=gender]:checked').val();
+	
+/*	$.ajax({
+		url: "/task/confirmEndExecution",
+		type: 'POST',
+		data: JSON.stringify(task),
+        contentType: "application/json"
+	}).done(function () {
+	
+		alert("Potvrdio uradjen posao");
+		document.location.reload();
+		
+	}).fail(function (jqXHR, textStatus, errorThrown) {
+		showErrors(errorThrown)
+	})*/
+});
+///////////////////////////////////////////functions
 function showErrors(errors) {
     toastr.error(errors, "Errors");
 }
@@ -145,9 +232,40 @@ function openTask(id,name) {
     	//$("#finalDecisionDiv").removeClass("hiddenDiv");
     	$("#taskIdFinalDesicionDiv").val(id);
     	$("#taskNameFinalDesicionDiv").val(name);
-    	
-    }else if(name == "Fill requirement"){
-    	alert("FILL REQUIREMENT");
+    
+    }else if(name == "Popunjavanje zahtjeva"){
+    	$("#fillRequirementDiv").removeClass("hiddenDiv");
+    	$("#taskIdFillRequiremenDiv").val(id);
+    	task = {}
+    	task.id = id;
+    	task.name = name;
+    	$.ajax({
+            url: "/task/getRequestFromTask",
+            type: 'POST',
+            data: JSON.stringify(task),
+            contentType: "application/json",
+            dataType :"json",
+        }).done(function(data) {
+        	$("#textAreaRequest").val(data.text);
+        	$("#requestIdFillRequirement").val(data.request.id);
+        	$("#offerIdFillRequirement").val(data.offer.id);
+        	$("#userNameFillRequirement").val(data.request.user.name);
+    
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            showErrors(errorThrown)
+        })
+    }else if(name == "Utvrdjivanje termina pocetka"){
+    	$("#determinationTimeStartDiv").removeClass("hiddenDiv");
+    	$("#taskIdDeterminationTimeStart").val(id);
+    	$("#taskNameDeterminationTimeStart").val(name);
+    }else if(name == "Potvrda o izvrsenju posla"){
+    	$("#endExecutionDiv").removeClass("hiddenDiv");
+    	$("#taskIdEndExecutionDiv").val(id);
+    	$("#taskNameEndExecutionDiv").val(name);
+    }else if(name == "Ocjenjivanje klijenta"){
+    	$("#ratingClientDiv").removeClass("hiddenDiv");
+    	$("#taskIdRatingClient").val(id);
+    	$("#taskNameRatingClient").val(name);
     }
     
 }

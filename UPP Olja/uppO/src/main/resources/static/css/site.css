@@ -14,3 +14,12 @@
     top: 50%;
     left: 50%;
 }
+
+.centeredRequiredDiv{
+	position: absolute;
+    height: 200px;
+    width: 500px;
+    margin: -100px 0 0 -200px;
+    top: 50%;
+    left: 50%;
+}

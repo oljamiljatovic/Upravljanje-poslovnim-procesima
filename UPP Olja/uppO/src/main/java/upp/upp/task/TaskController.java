@@ -156,6 +156,7 @@ public class TaskController {
 		String text = mockTask.getText();
 		variables.put("companyForRequirement", currentOffer.getCompany().getId());
 		variables.put("requiredRequirement", 1);
+		variables.put("textRequest", text);
 		
 		
 		taskService.complete(task.getId(),variables);
@@ -174,12 +175,122 @@ public class TaskController {
 		
 		variables.put("companyForRequirement", currentOffer.getCompany().getId());
 		variables.put("requiredRequirement", 0);
-		
+		variables.put("finishRequirement", 1);
 		
 		taskService.complete(task.getId(),variables);
 		
 	}
 	
+	@PostMapping("/getRequestFromTask")
+	public Requirement getRequestFromTask(@RequestBody MockTask mockTask) {
+	
+		HashMap<String, Object> variables=new HashMap<>();
+		Task task = taskService.createTaskQuery().active().taskId(mockTask.getId()).list().get(0);
+		variables =(HashMap<String, Object>) runtimeService.getVariables(task.getProcessInstanceId());
+		
+		
+		String text = (String) variables.get("textRequest");
+		RequestForFavour request = (RequestForFavour) variables.get("request");
+		Offer currentOffer = (Offer) variables.get("currentOffer");
+	
+		Requirement requirement = new Requirement();
+		requirement.setText(text);
+		requirement.setRequest(request);
+		requirement.setOffer(currentOffer);
+		
+		return requirement;
+	}
+	
+	
+	@PostMapping("/confirmExplanation")
+	public void confirmExplanation(@RequestBody MockTaskOffer mockTask) {
+		HashMap<String, Object> variables=new HashMap<>();
+		Task task = taskService.createTaskQuery().active().taskId(mockTask.getTaskId()).list().get(0);
+		variables =(HashMap<String, Object>) runtimeService.getVariables(task.getProcessInstanceId());
+		String text = mockTask.getText();
+		variables.put("textResponse", text);
+		taskService.complete(task.getId(),variables);
+		
+	}
+	
+	@PostMapping("/getTextFromTask")
+	public MockTaskOffer getTextFromTask(@RequestBody MockTask mockTask) {
+	
+		HashMap<String, Object> variables=new HashMap<>();
+		Task task = taskService.createTaskQuery().active().taskId(mockTask.getId()).list().get(0);
+		variables =(HashMap<String, Object>) runtimeService.getVariables(task.getProcessInstanceId());
+		
+		
+		String text = (String) variables.get("textResponse");
+		Offer currentOffer = (Offer) variables.get("currentOffer");
+		
+		MockTaskOffer mockTaskOffer = new MockTaskOffer();
+		mockTaskOffer.setText(text);
+		mockTaskOffer.setTaskId(mockTask.getId());
+		mockTaskOffer.setOfferId(currentOffer.getId());
+		
+		return mockTaskOffer;
+	}
+	
+	
+	@GetMapping("/otherOffers/{id}")
+	public void otherOffers(@PathVariable String id) {
+	
+		HashMap<String, Object> variables=new HashMap<>();
+		Task task = taskService.createTaskQuery().active().taskId(id).list().get(0);
+		variables =(HashMap<String, Object>) runtimeService.getVariables(task.getProcessInstanceId());
+		
+		variables.put("finishRequirement", 0);
+		variables.remove("currentOffer"); //prekontrolisati da li napravi posle haos
+		variables.remove("textRequest");
+		variables.remove("textResponse");
+		
+		taskService.complete(task.getId(),variables);
+	}
+	
+	@GetMapping("/acceptThisOffer/{id}")
+	public void acceptThisOffer(@PathVariable String id) {
+	
+		HashMap<String, Object> variables=new HashMap<>();
+		Task task = taskService.createTaskQuery().active().taskId(id).list().get(0);
+		variables =(HashMap<String, Object>) runtimeService.getVariables(task.getProcessInstanceId());
+		
+		variables.put("finishRequirement", 1);
+		
+		taskService.complete(task.getId(),variables);
+	}
+	
+	@PostMapping("/determinationTimeStart")
+	public void determinationTimeStart(@RequestBody MockTaskDate mockTask ) {
+	
+		HashMap<String, Object> variables=new HashMap<>();
+		Task task = taskService.createTaskQuery().active().taskId(mockTask.getId()).list().get(0);
+		variables =(HashMap<String, Object>) runtimeService.getVariables(task.getProcessInstanceId());
+		
+		Offer offer = (Offer) variables.get("currentOffer"); //da vidim da li radi ispravno
+		
+		variables.put("executingCompanyId", offer.getCompany().getId());
+		taskService.complete(task.getId(),variables);
+	}
+	
+
+	@PostMapping("/confirmEndExecution")
+	public void confirmEndExecution(@RequestBody MockTask mockTask ) {
+	
+		HashMap<String, Object> variables=new HashMap<>();
+		Task task = taskService.createTaskQuery().active().taskId(mockTask.getId()).list().get(0);
+		variables =(HashMap<String, Object>) runtimeService.getVariables(task.getProcessInstanceId());
+		
+		//Offer offer = (Offer) variables.get("currentOffer"); //da vidim da li radi ispravno
+		
+		//variables.put("executingCompanyId", offer.getCompany().getId());
+		taskService.complete(task.getId(),variables);
+	}
+	
+	
+	
+	
+	///////////////////////////pomocne
 	@GetMapping("/getCurrentOfferFromTask/{id}")
 	public Offer getCurrentOfferFromTask(@PathVariable String id) {
 	

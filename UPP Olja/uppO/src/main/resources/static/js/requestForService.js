@@ -345,6 +345,65 @@ $(document).on('click', '#withoutRequiredExplain', function(e) {
         showErrors(errorThrown)
     })
 });
+
+
+
+$(document).on('click', '#otherOffers', function(e) {
+	
+	var taskId = $("#taskIdDisplayResponse").val();
+
+
+	$.ajax({
+        url: "/task/otherOffers/"+taskId,
+        type: 'GET',
+    }).done(function() {
+    	alert("other offers");
+    	/*$("#dateRepeatProcessDiv").removeClass("hiddenDiv");
+    	document.location.reload();*/
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        showErrors(errorThrown)
+    })
+});
+
+
+$(document).on('click', '#acceptThisOffer', function(e) {
+	
+	var taskId = $("#taskIdDisplayResponse").val();
+
+
+	$.ajax({
+        url: "/task/acceptThisOffer/"+taskId,
+        type: 'GET',
+    }).done(function() {
+    	alert("other offers");
+    	/*$("#dateRepeatProcessDiv").removeClass("hiddenDiv");
+    	document.location.reload();*/
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        showErrors(errorThrown)
+    })
+});
+
+$(document).on('click', '#rateCompany', function(e) {
+	task = {}
+	task.id =  $("#taskIdRatingCompany").val();
+	task.name = $("#taskNameRatingCompany").val();
+
+	var ocjena = $('input[name=gender]:checked').val();
+	
+/*	$.ajax({
+		url: "/task/confirmEndExecution",
+		type: 'POST',
+		data: JSON.stringify(task),
+        contentType: "application/json"
+	}).done(function () {
+	
+		alert("Potvrdio uradjen posao");
+		document.location.reload();
+		
+	}).fail(function (jqXHR, textStatus, errorThrown) {
+		showErrors(errorThrown)
+	})*/
+});
 /////////////////////////////////////////////////////
 
 function showErrors(errors) {
@@ -377,7 +436,7 @@ function openTask(id,name) {
     	$("#taskIdDateRepeatProcess").val(id);
     	$("#taskNameDateRepeatProcess").val(name);
     	$("#dateRepeatProcessDiv").removeClass("hiddenDiv");
-    }else if(name == "Require explain"){
+    }else if(name == "Zahtjevanje objasnjenja"){
     	 $("#requiredExplainDiv").removeClass("hiddenDiv");
     	 $("#taskIdRequiredExplain").val(id);
     	 
@@ -393,8 +452,34 @@ function openTask(id,name) {
  	    }).fail(function (jqXHR, textStatus, errorThrown) {
  	        showErrors(errorThrown)
  	    })
-    	 
     	
+    }else if(name == "Prikaz objasnjenja"){
+    	 $("#displayResponseDiv").removeClass("hiddenDiv");
+    	 $("#taskIdDisplayResponse").val(id);
+    	
+    	 task = {}
+    	 task.id = id;
+    	 task.name = name;
+    	 $.ajax({
+    		 url: "/task/getTextFromTask",
+             type: 'POST',
+             data: JSON.stringify(task),
+             contentType: "application/json",
+             dataType :"json",
+  	    }).done(function(data) {
+  	    	alert("dobio offer id");
+  	    	 $("#textAreaResponse").val(data.text);
+  	    	
+  	    	
+  	    }).fail(function (jqXHR, textStatus, errorThrown) {
+  	        showErrors(errorThrown)
+  	    })
+    	//prikazati objasnjenje i imati mogucnost da potvrdi da se odlucio za tu firmu ili da se vrati 
+    	//na biranje neke druge ponude
+    }else if(name == "Ocjenjivanje firme"){
+    	$("#ratingCompanyDiv").removeClass("hiddenDiv");
+    	$("#taskIdRatingCompany").val(id);
+    	$("#taskNameRatingCompany").val(name);
     }
     
 } 

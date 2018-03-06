@@ -94,5 +94,63 @@
 	
 	</div>
 	
+	<div class="centeredRequiredDiv hiddenDiv" id="fillRequirementDiv">
+		<input type ="hidden" id = "taskIdFillRequiremenDiv" >
+		<input type ="hidden" id = "requestIdFillRequirement" >
+		<input type ="hidden" id = "offerIdFillRequirement" >
+		<label>Client name: </label><input type="text" id = "userNameFillRequirement" value = "">
+		<br/>
+		<label>Clients requirement</label><textarea  rows="10" cols="30"id = "textAreaRequest"></textarea>
+		<br/>
+		<br/>
+		<p> Please fill the gaps </p>
+		<textarea rows="10" cols="30" id = "textAreaResponse"></textarea>
+		<input type="button" class="btn btn-primary " id="confirmExplanation" value="Confirm" >
+	</div>
+	
+	
+	<div class="centeredDiv hiddenDiv" id="determinationTimeStartDiv">
+			<input type ="hidden" id = "taskIdDeterminationTimeStart" >
+			<input type ="hidden" id = "taskNameDeterminationTimeStart" >
+			
+			<div class="col-sm-9">
+				<input type="date" id="dateDeterminationTimeStart" class="form-control" value="2013-07-09" />
+				<input type="button" class="btn btn-primary " id="sendTimeStart" value="Send" >
+			</div>
+	</div>
+	
+	
+	<div class="centeredDiv hiddenDiv" id="endExecutionDiv">
+		<input type ="hidden" id = "taskIdEndExecutionDiv" >
+		<input type ="hidden" id = "taskNameEndExecutionDiv" >
+		<p> Molimo potvrdite da ste izvrsili posao </p>
+		<input type="button" class="btn btn-primary " id="confirmEndExecution" value="Potvrdi" >
+			
+	</div>
+	
+	
+	<div class="centeredDiv hiddenDiv" id="ratingClientDiv">
+		<input type ="hidden" id = "taskIdRatingClient" >
+		<input type ="hidden" id = "taskNameRatingClient" >
+		<p> Molimo Vas da ocjenite klijenta</p>
+		
+		
+    	<input type="radio" id="genderm" name="gender" value="1" />
+		<label for="genderm">1</label>
+		<input type="radio" id="genderf" name="gender" value="2" />
+		<label for="genderf">2</label>
+		
+		<input type="radio" id="genderf" name="gender" value="3" />
+		<label for="genderf">3</label>
+		
+		<input type="radio" id="genderf" name="gender" value="4" />
+		<label for="genderf">4</label>
+		
+		<input type="radio" id="genderf" name="gender" value="5" />
+		<label for="genderf">5</label>
+		
+		<input type="button" class="btn btn-primary " id="rateClient" value="Potvrdi" >
+			
+	</div>
 </body>
 </html>

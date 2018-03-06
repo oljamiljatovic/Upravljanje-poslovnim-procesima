@@ -65,10 +65,7 @@ public class OfferComponent {
 	public void sendMailNotEnoughOffers(List<Offer> offers, RequestForFavour request, String instanceId){
 		System.out.println("send mail not enough offers");
 	}
-	
-	public void druga(List<Offer> offers) {
-		System.out.println("druga, tj. tacan broj ");
-	}
+
 	
 	/*funkcija koja ce izracunavati rank na osnovu ponuda*/
 	private int getRank() {
@@ -81,9 +78,7 @@ public class OfferComponent {
 		System.out.println("sortiranje....");
 	}
 	
-	public void neka() {
-		System.out.println("Funkcija koja se poziva kada se ne trazi requirement");
-	}
+	
 	
 	private User getUserFromSession() {
 		ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
