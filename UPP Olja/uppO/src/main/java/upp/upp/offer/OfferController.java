@@ -53,7 +53,7 @@ public class OfferController {
 	
 	@PostMapping(path = "/addOfferToRequest/{id}")
 	public int add(@PathVariable String id,@RequestBody OfferDTO offerDTO) {
-		System.out.println("sdafaaf");
+
 		offerDTO.setIdCompany(getUserFromSession().getId());
 		HashMap<String, Object> variables=new HashMap<>();
 		Task task = taskService.createTaskQuery().active().taskId(id).list().get(0);
@@ -64,10 +64,12 @@ public class OfferController {
 		if(variables.get("offers") == null) {
 			variables.put("offers", offers);
 		}
+		
+		variables.put("giveUpOffer", 0);
 		taskService.complete(task.getId(),variables);
 		variables =(HashMap<String, Object>) runtimeService.getVariables(task.getProcessInstanceId());
 		int rank = (int) variables.get("rank");
-		System.out.println("bilo ta");
+	
 		return rank;
 		
 	}

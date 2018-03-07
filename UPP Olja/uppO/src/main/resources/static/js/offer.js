@@ -47,17 +47,7 @@ $(document).on('click', '#sendOffer', function(e) {
 		data: JSON.stringify(offer),
         contentType: "application/json"
 	}).done(function (data) {
-	
-		/*var parent = document.getElementById("jobCategoryID");
-		for(var i = 0; i < data.length; i++) {
-		    var opt = document.createElement('option');
-		    opt.innerHTML = data[i].name;
-		    opt.value = data[i].id;
-		    parent.appendChild(opt);
-		}*/
-		
 		$("#fillOfferDiv").addClass("hiddenDiv");
-		//$("#finalDecisionDiv").removeClass("hiddenDiv");
 		$("#rankLabel").removeClass("hiddenButton");
 		$("#rankLabel").val("Rank is : "+data);
 		//document.location.reload();
@@ -138,10 +128,7 @@ $(document).on('click', '#confirmExplanation', function(e) {
 		data: JSON.stringify(taskOffer),
         contentType: "application/json"
 	}).done(function (data) {
-	
-	alert("Poslao svoj odgovor");
 	document.location.reload();
-		
 	}).fail(function (jqXHR, textStatus, errorThrown) {
 		showErrors(errorThrown)
 	})
@@ -160,10 +147,7 @@ $(document).on('click', '#sendTimeStart', function(e) {
 		data: JSON.stringify(taskDate),
         contentType: "application/json"
 	}).done(function () {
-	
-		alert("Poslao datum kada pocinje");
 		document.location.reload();
-		
 	}).fail(function (jqXHR, textStatus, errorThrown) {
 		showErrors(errorThrown)
 	})
@@ -181,10 +165,7 @@ $(document).on('click', '#confirmEndExecution', function(e) {
 		data: JSON.stringify(task),
         contentType: "application/json"
 	}).done(function () {
-	
-		alert("Potvrdio uradjen posao");
 		document.location.reload();
-		
 	}).fail(function (jqXHR, textStatus, errorThrown) {
 		showErrors(errorThrown)
 	})
@@ -197,19 +178,16 @@ $(document).on('click', '#rateClient', function(e) {
 
 	var ocjena = $('input[name=gender]:checked').val();
 	
-/*	$.ajax({
+	$.ajax({
 		url: "/task/confirmEndExecution",
 		type: 'POST',
 		data: JSON.stringify(task),
         contentType: "application/json"
 	}).done(function () {
-	
-		alert("Potvrdio uradjen posao");
 		document.location.reload();
-		
 	}).fail(function (jqXHR, textStatus, errorThrown) {
 		showErrors(errorThrown)
-	})*/
+	})
 });
 ///////////////////////////////////////////functions
 function showErrors(errors) {
@@ -312,7 +290,7 @@ function fillRequestFormTask(id){
 	       	     var newCell6 = newRow1.insertCell(5);
 	       	     var input3 = document.createElement('input');
 	       	     input3.setAttribute("type", "button");
-	       	     input.setAttribute("onClick", 'giveUp('+data.id+',"'+id+'")');
+	       	     input3.setAttribute("onClick", 'giveUp('+data.id+',"'+id+'")');
 	       	     input3.setAttribute("value", "Give up");
 	       	     input3.setAttribute("class", "btn btn-primary");
 	       	     newCell6.appendChild(input3);
@@ -331,9 +309,17 @@ function fillOfferDiv(idRequest, idTask){
 	
 }
 function giveUp(idRequest, idTask){
-	alert("Fill offerdiv");
-	$("#fillOfferDiv").removeClass("hiddenDiv");	
-	$("#idRequestFillOfferDiv").val(idRequest);
-	$("#idTaskFillOfferDiv").val(idTask);
+	alert("give up");
+	//$("#fillOfferDiv").removeClass("hiddenDiv");	
+	
+	$.ajax({
+        url: "/task/giveUpOffer/"+idTask,
+        type: 'GET'
+    }).done(function() {
+    	document.location.reload();
+
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        showErrors(errorThrown)
+    })
 	
 }

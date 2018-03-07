@@ -9,10 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +19,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import upp.upp.jobCategory.JobCategory;
 import upp.upp.jobCategory.JobCategoryService;
+import upp.upp.offer.Offer;
 import upp.upp.task.MockTask;
 import upp.upp.user.User;
 
@@ -56,6 +54,10 @@ public class RequestForFavourController {
 		variables.put("userKey",u.getRandomKey());
 		variables.put("request",  retVal);
 		variables.put("lista", lista );
+		int numberOfRepeat = 0;
+		variables.put("numberOfRepeat", numberOfRepeat);
+		variables.put("offers", new ArrayList<Offer>());
+		
 		runtimeService.startProcessInstanceByKey("projekat",variables);
 		Task t= taskService.createTaskQuery().active().taskAssignee(u.getRandomKey()).list().get(0);
 		taskService.complete(t.getId(),variables);

@@ -86,16 +86,23 @@ public class RequestForFavourComponent {
 	}
 	
 	private ArrayList<User> getRandomCompanies(List<User> foundedCompanies, int numberOfOffers) {
-		Random randomGenerator = new Random();
+		//Random randomGenerator = new Random();
 		ArrayList<User> retVal = new ArrayList<>();
 		Collections.shuffle(foundedCompanies);
 		
-		while(numberOfOffers != 0) {
+		
+		
+			for(int i =0;i<foundedCompanies.size();i++) {
+				if(numberOfOffers != retVal.size())
+					retVal.add(foundedCompanies.get(i));
+			}
+		
+		/*while(numberOfOffers != 0) {
 			int index = randomGenerator.nextInt(foundedCompanies.size());
 			User item = foundedCompanies.get(index);
 			retVal.add(item);
 			numberOfOffers--;
-		}
+		}*/
 		return retVal;
 	}
 	private double getDistance(double lat1, double lat2, double lon1,

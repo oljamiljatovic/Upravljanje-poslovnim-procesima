@@ -44,6 +44,9 @@ public class User {
 	private double longitude;
 	private double latitude;
 	
+	private int numberOfMarks;
+	private int sumOfMarks;
+	
 	public User() {}
 	
 	

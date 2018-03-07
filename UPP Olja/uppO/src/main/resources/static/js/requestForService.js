@@ -390,19 +390,19 @@ $(document).on('click', '#rateCompany', function(e) {
 
 	var ocjena = $('input[name=gender]:checked').val();
 	
-/*	$.ajax({
-		url: "/task/confirmEndExecution",
+
+	$.ajax({
+		url: "/task/rateClient/"+ocjena,
 		type: 'POST',
 		data: JSON.stringify(task),
         contentType: "application/json"
 	}).done(function () {
 	
-		alert("Potvrdio uradjen posao");
 		document.location.reload();
 		
 	}).fail(function (jqXHR, textStatus, errorThrown) {
 		showErrors(errorThrown)
-	})*/
+	})
 });
 /////////////////////////////////////////////////////
 

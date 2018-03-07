@@ -25,6 +25,7 @@ import upp.upp.jobCategory.JobCategoryService;
 import upp.upp.offer.Offer;
 import upp.upp.offer.OfferService;
 import upp.upp.user.User;
+import upp.upp.user.UserService;
 
 @RestController
 @RequestMapping("/task")
@@ -44,6 +45,9 @@ public class TaskController {
 	
 	@Autowired
 	private OfferService offerService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/getTaskForUser")
 	public List<MockTask> getTaskForUser() {
@@ -109,6 +113,11 @@ public class TaskController {
 		variables =(HashMap<String, Object>) runtimeService.getVariables(task.getProcessInstanceId());
 		
 		variables.put("rangDecision", 2);
+		
+		int numberOfRepeat = (int) variables.get("numberOfRepeat");
+		numberOfRepeat++;
+		variables.put("numberOfRepeat",numberOfRepeat);
+		
 		taskService.complete(task.getId(),variables);
 		
 	}
@@ -287,8 +296,57 @@ public class TaskController {
 		taskService.complete(task.getId(),variables);
 	}
 	
+	@PostMapping("/rateCompany/{ocjena}")
+	public void rateCompany(@RequestBody MockTask mockTask, @PathVariable String ocjena ) {
+	
+		HashMap<String, Object> variables=new HashMap<>();
+		Task task = taskService.createTaskQuery().active().taskId(mockTask.getId()).list().get(0);
+		variables =(HashMap<String, Object>) runtimeService.getVariables(task.getProcessInstanceId());
+		
+		Offer offer = (Offer) variables.get("currentOffer");
+		User company = userService.findOne(offer.getCompany().getId());
+		int number = company.getNumberOfMarks() +1;
+		company.setNumberOfMarks(number);
+		int sum = company.getSumOfMarks() + Integer.parseInt(ocjena);
+		company.setSumOfMarks(sum);
+		
+		company = userService.save(company);
+		
+		
+		taskService.complete(task.getId(),variables);
+	}
 	
 	
+	@PostMapping("/rateClient/{ocjena}")
+	public void rateClient(@RequestBody MockTask mockTask, @PathVariable String ocjena ) {
+	
+		HashMap<String, Object> variables=new HashMap<>();
+		Task task = taskService.createTaskQuery().active().taskId(mockTask.getId()).list().get(0);
+		variables =(HashMap<String, Object>) runtimeService.getVariables(task.getProcessInstanceId());
+		
+		RequestForFavour request = (RequestForFavour) variables.get("request");
+		User company = userService.findOne(request.getUser().getId());
+		int number = company.getNumberOfMarks() +1;
+		company.setNumberOfMarks(number);
+		int sum = company.getSumOfMarks() + Integer.parseInt(ocjena);
+		company.setSumOfMarks(sum);
+		
+		company = userService.save(company);
+		
+		
+		taskService.complete(task.getId(),variables);
+	}
+	
+	@GetMapping("/giveUpOffer/{idTask}")
+	public void giveUpOffer(@PathVariable String idTask ) {
+	
+		HashMap<String, Object> variables=new HashMap<>();
+		Task task = taskService.createTaskQuery().active().taskId(idTask).list().get(0);
+		variables =(HashMap<String, Object>) runtimeService.getVariables(task.getProcessInstanceId());
+		
+		variables.put("giveUpOffer", 1);
+		taskService.complete(task.getId(),variables);
+	}
 	
 	///////////////////////////pomocne
 	@GetMapping("/getCurrentOfferFromTask/{id}")
