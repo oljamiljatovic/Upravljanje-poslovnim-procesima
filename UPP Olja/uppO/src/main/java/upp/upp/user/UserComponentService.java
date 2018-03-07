@@ -58,7 +58,7 @@ public class UserComponentService {
 	public MockUser sendMailForRegistration(MockUser obj) throws MessagingException {
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message, true);
-		helper.setFrom("isarestorani@gmail.com");
+		helper.setFrom("isarestorani2@gmail.com");
 		helper.setTo(obj.getEmail());
 		helper.setSubject("Registration request");
 		String text = "localhost:8080/user/confirmRegistration/"+obj.getRandomKey();
@@ -67,10 +67,12 @@ public class UserComponentService {
 		obj.setSentMail(1);
 		
 		ArrayList<JobCategory> listOfCategories = new ArrayList<JobCategory>();
+		if(obj.getCategories() != null) {
+			for(int i = 0; i <obj.getCategories().size(); i++) {
+				JobCategory category = jobCategoryService.findOne(obj.getCategories().get(i));
+				listOfCategories.add(category);
+			}
 		
-		for(int i = 0; i <obj.getCategories().size(); i++) {
-			JobCategory category = jobCategoryService.findOne(obj.getCategories().get(i));
-			listOfCategories.add(category);
 		}
 		User u = new User(obj,listOfCategories);
 		u = userService.save(u);

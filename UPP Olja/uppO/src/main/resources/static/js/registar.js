@@ -18,18 +18,24 @@ $( document ).ready(function() {
                 contentType: "application/json",
                 dataType :"json"
             }).done(function (data) {
-            	showMessage("Ok");  
-            	$("#longitude").val(data.longitude); 
-            	$("#latitude").val(data.latitude);
-            	$("#randomKey").val(data.randomKey);
             	
-            	if(data.role == 2){
-            		addInputForCompany();
-            		$("#buttonSave").removeClass("hiddenButton");
-            		$("#submitSave").addClass("hiddenButton");
+            		$("#longitude").val(data.longitude); 
+            		$("#latitude").val(data.latitude);
+            		$("#randomKey").val(data.randomKey);
+            	
+            		if(data.role == 2){
+            			addInputForCompany();
+            			$("#buttonSave").removeClass("hiddenButton");
+            			$("#submitSave").addClass("hiddenButton");
             		
-            	}
-
+            		}else if(data.role == 1 && data.valid == 1){
+            			//validan
+            			showMessage("Potvrdite Vasu registraciju na mail");
+            			$("#registraionDiv").addClass("hiddenDiv");
+            		}else if(data.role == 1 && data.valid == 0){
+            			showErrors("Nevalidan username ili password");
+            		}
+            	
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 showErrors(errorThrown)
@@ -43,9 +49,6 @@ $( document ).ready(function() {
 });
 	
 $(document).on('click', '#buttonSave', function(e) {
-	alert("Olja");
-	
-   
     	dataToAdd = {}
     	dataToAdd.name = $("#name").val();
     	dataToAdd.userName =  $("#userName").val();
@@ -68,10 +71,17 @@ $(document).on('click', '#buttonSave', function(e) {
             url: "/user/addCompany",
             type: 'POST',
             data: JSON.stringify(dataToAdd),
-            contentType: "application/json"
-        }).done(function () {
-        	showMessage("Uspjesno logovanje");  
-        	
+            contentType: "application/json",
+            dataType:"json",
+        }).done(function (data) {
+        	  
+        	if(data.valid == 1){
+			//validan
+        		showMessage("Potvrdite Vasu registraciju na mail");
+				$("#registraionDiv").addClass("hiddenDiv");
+        	}else{
+				showErrors("Nevalidan username ili password");
+			}
 
         })
         .fail(function (jqXHR, textStatus, errorThrown) {

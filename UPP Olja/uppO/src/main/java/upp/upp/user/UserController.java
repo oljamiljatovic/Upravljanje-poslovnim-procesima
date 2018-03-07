@@ -107,7 +107,7 @@ public class UserController {
 	
 	
 	@PostMapping(path="/addCompany")
-	public String addCompany(@RequestBody MockUser obj) {
+	public MockUser addCompany(@RequestBody MockUser obj) {
 		String retVal = "";
 		HashMap<String, Object> variables=new HashMap<>();
 		variables.put("userKey",obj.getRandomKey());
@@ -117,7 +117,7 @@ public class UserController {
 		variables.put("user", obj);
 		taskService.complete(t.getId(),variables);
 	
-		return retVal;
+		return obj;
 	}	
 	
 	@GetMapping("/confirmRegistration/{key}")
