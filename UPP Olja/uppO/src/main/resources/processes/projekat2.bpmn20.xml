@@ -2,7 +2,16 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
   <process id="projekat" isExecutable="true">
     <startEvent id="sid-712FE88D-E74A-4999-BAB2-5EFF289D48A4"></startEvent>
-    <userTask id="sid-8DB59E8A-DEA0-4DA6-BEED-943320A46B1C" name="Zahtjev za nabavkom robe" activiti:assignee="${userKey}"></userTask>
+    <userTask id="sid-8DB59E8A-DEA0-4DA6-BEED-943320A46B1C" name="Zahtjev za nabavkom robe" activiti:assignee="${userKey}">
+      <extensionElements>
+        <activiti:formProperty id="jobCategoryIDProp" name="jobCategoryIDProp" type="string"></activiti:formProperty>
+        <activiti:formProperty id="descriptionProp" name="descriptionProp" type="string"></activiti:formProperty>
+        <activiti:formProperty id="maxValuationProp" name="maxValuationProp" type="string"></activiti:formProperty>
+        <activiti:formProperty id="timeLimitForOffersProp" name="timeLimitForOffersProp" type="string"></activiti:formProperty>
+        <activiti:formProperty id="maxNumberOffersProp" name="maxNumberOffersProp" type="string"></activiti:formProperty>
+        <activiti:formProperty id="timeLimitForCarryOutProp" name="timeLimitForCarryOutProp" type="string"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
     <sequenceFlow id="sid-C92E955C-E25D-4EFF-8492-564FAA02B701" sourceRef="sid-712FE88D-E74A-4999-BAB2-5EFF289D48A4" targetRef="sid-8DB59E8A-DEA0-4DA6-BEED-943320A46B1C"></sequenceFlow>
     <serviceTask id="servicetask1" name="Formiranje liste firmi" activiti:expression="${requestForFavourComponent.createListOfCompanies(request,execution.getProcessInstanceId())}" activiti:resultVariableName="lista"></serviceTask>
     <sequenceFlow id="flow1" sourceRef="sid-8DB59E8A-DEA0-4DA6-BEED-943320A46B1C" targetRef="servicetask1"></sequenceFlow>

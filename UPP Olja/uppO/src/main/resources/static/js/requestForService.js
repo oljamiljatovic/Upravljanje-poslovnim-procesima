@@ -62,12 +62,12 @@ $(document).on('click', '#fillRequest', function(e) {
 $(document).on('click', '#sendRequest', function(e) {
 	
   	dataToAdd = {}
-	dataToAdd.jobCategoryID = $("#jobCategoryID").val();
-	dataToAdd.description =  $("#description").val();
-	dataToAdd.maxValuation = $("#maxValuation").val();
-	dataToAdd.timeLimitForOffers = $("#timeLimitForOffers").val();
-	dataToAdd.maxNumberOffers =  $("#maxNumberOffers").val();
-	dataToAdd.timeLimitForCarryOut =  $("#timeLimitForCarryOut").val();
+	dataToAdd.jobCategoryIDProp = $("#jobCategoryID").val();
+	dataToAdd.descriptionProp =  $("#description").val();
+	dataToAdd.maxValuationProp = $("#maxValuation").val();
+	dataToAdd.timeLimitForOffersProp = $("#timeLimitForOffers").val();
+	dataToAdd.maxNumberOffersProp =  $("#maxNumberOffers").val();
+	dataToAdd.timeLimitForCarryOutProp =  $("#timeLimitForCarryOut").val();
 
 	$.ajax({
         url: "/requestForFavour",

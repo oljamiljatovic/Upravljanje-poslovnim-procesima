@@ -35,7 +35,7 @@ public class User {
 	private int registrated;	
 	private int role;
 	
-	@ManyToMany(cascade=CascadeType.ALL) 
+	@ManyToMany 
 	@JoinTable(name="USER_CATEGORY_JOB", joinColumns=@JoinColumn(name="USER_ID"),inverseJoinColumns=@JoinColumn(name="JOB_ID"))
 	private List<JobCategory> categories;
 	private double distance;

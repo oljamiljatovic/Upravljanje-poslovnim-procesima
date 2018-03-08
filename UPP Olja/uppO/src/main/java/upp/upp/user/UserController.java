@@ -1,7 +1,10 @@
 package upp.upp.user;
 
+import static org.mockito.Mockito.mock;
+
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -88,7 +91,8 @@ public class UserController {
 	}	
 	
 	@PostMapping
-	public MockUser add(@RequestBody MockUser obj) {
+	public MockUser add(@RequestBody Map<String,String>map) {
+		MockUser obj = generateMockUser(map); 
 		String retVal = "";
 	
 		HashMap<String, Object> variables=new HashMap<>();
@@ -105,6 +109,18 @@ public class UserController {
 		return obj;
 	}	
 	
+	private MockUser generateMockUser(Map<String,String> map) {
+		MockUser mockUser  = new MockUser();
+		mockUser.setName(map.get("nameProp"));
+		mockUser.setUserName(map.get("userNameProp"));
+		mockUser.setEmail(map.get("emailProp"));
+		mockUser.setPassword(map.get("passwordProp"));
+		mockUser.setAddress(map.get("addressProp"));
+		mockUser.setCity(map.get("cityProp"));
+		mockUser.setPostNumber(map.get("postNumberProp"));
+		mockUser.setRole(Integer.parseInt(map.get("roleProp")));
+		return mockUser;
+	}
 	
 	@PostMapping(path="/addCompany")
 	public MockUser addCompany(@RequestBody MockUser obj) {

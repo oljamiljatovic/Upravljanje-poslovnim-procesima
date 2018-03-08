@@ -1,8 +1,13 @@
 package upp.upp.RequestForFavour;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -40,7 +45,9 @@ public class RequestForFavourController {
 	private JobCategoryService jobCategoryService;
 	
 	@PostMapping
-	public Long add(@RequestBody RequestForFavourDTO obj) {
+	public Long add(@RequestBody Map<String,String>map) {
+		
+		RequestForFavourDTO obj = generateObject(map);
 		ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
 		HttpSession session= attr.getRequest().getSession(true);
 		User u = (User) session.getAttribute("korisnik");
@@ -68,7 +75,29 @@ public class RequestForFavourController {
 		return temp.getId(); //ovdje se vraca na front za dodavanje request -a 
 	}
 	
-	
+	private RequestForFavourDTO generateObject(Map<String,String>map) {
+		RequestForFavourDTO request = new RequestForFavourDTO();
+		
+		request.setJobCategoryID(Long.parseLong(map.get("jobCategoryIDProp")));
+		request.setDescription(map.get("descriptionProp"));
+		request.setMaxValuation(Double.parseDouble(map.get("maxValuationProp")));
+		
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date2 = null;
+		java.util.Date date3 = null;
+		try {
+			date2 = formatter.parse(map.get("timeLimitForOffersProp"));
+			date3 = formatter.parse(map.get("timeLimitForCarryOutProp"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		request.setTimeLimitForOffers(date2);
+		request.setMaxNumberOffers(Integer.parseInt(map.get("maxNumberOffersProp")));
+		request.setTimeLimitForCarryOut(date3);
+		
+		return request;
+	}
 
 
 /*Prihvatanje u prvom odabiru*/

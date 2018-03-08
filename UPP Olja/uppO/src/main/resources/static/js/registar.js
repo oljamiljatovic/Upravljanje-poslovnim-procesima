@@ -2,14 +2,14 @@ $( document ).ready(function() {
 	$( "#registraionForm" ).submit(function( e ) {
         if (e.isDefaultPrevented() === false) {
         	dataToAdd = {}
-        	dataToAdd.name = $("#name").val();
-        	dataToAdd.userName =  $("#userName").val();
-        	dataToAdd.email = $("#email").val();
-        	dataToAdd.password = $("#password").val();
-        	dataToAdd.address =  $("#address").val();
-        	dataToAdd.city =  $("#city").val();
-        	dataToAdd.postNumber =  $("#postNumber").val();
-        	dataToAdd.role = $("#role").val();
+        	dataToAdd.nameProp = $("#name").val();
+        	dataToAdd.userNameProp =  $("#userName").val();
+        	dataToAdd.emailProp = $("#email").val();
+        	dataToAdd.passwordProp = $("#password").val();
+        	dataToAdd.addressProp =  $("#address").val();
+        	dataToAdd.cityProp =  $("#city").val();
+        	dataToAdd.postNumberProp =  $("#postNumber").val();
+        	dataToAdd.roleProp = $("#role").val();
         
         	$.ajax({
                 url: "/user",
@@ -62,10 +62,9 @@ $(document).on('click', '#buttonSave', function(e) {
     	dataToAdd.randomKey = $("#randomKey").val();
     	dataToAdd.longitude = $("#longitude").val();
     	dataToAdd.latitude = $("#latitude").val();
-    	choosenCategories = [];
-    	choosenCategories.push($("#categories").val())
+    	dataToAdd.categories = $("#categories").val();
     	
-    	dataToAdd.categories = choosenCategories;
+    	
     	
     	$.ajax({
             url: "/user/addCompany",
@@ -145,7 +144,7 @@ function addInputForCompany() {
 	
     if(selectedValue == 2){
     	$("#roleDiv").after('<div class="form-group"><label class="col-sm-3">Categories :</label>'+
-    			' <div class="col-sm-9"><select class="form-control" id="categories" >'+
+    			' <div class="col-sm-9"><select class="form-control"  multiple id="categories" >'+
 					'</select></div></div>');
     	$.ajax({
 			type: 'GET',

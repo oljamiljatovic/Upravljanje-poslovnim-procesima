@@ -4,7 +4,18 @@
   <process id="registrationProcess" name="Registration" isExecutable="true">
     <startEvent id="startevent1" name="Start"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
-    <userTask id="usertask2" name="CommonRegistration" activiti:assignee="${userKey}"></userTask>
+    <userTask id="usertask2" name="CommonRegistration" activiti:assignee="${userKey}">
+      <extensionElements>
+        <activiti:formProperty id="nameProp" name="nameProp" type="string"></activiti:formProperty>
+        <activiti:formProperty id="userNameProp" name="userNameProp" type="string"></activiti:formProperty>
+        <activiti:formProperty id="emailProp" name="emailProp" type="string"></activiti:formProperty>
+        <activiti:formProperty id="passwordProp" name="passwordProp" type="string"></activiti:formProperty>
+        <activiti:formProperty id="addressProp" name="addressProp" type="string"></activiti:formProperty>
+        <activiti:formProperty id="cityProp" name="cityProp" type="string"></activiti:formProperty>
+        <activiti:formProperty id="postNumberProp" name="postNumberProp" type="string"></activiti:formProperty>
+        <activiti:formProperty id="roleProp" name="roleProp" type="string"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
     <sequenceFlow id="flow6" sourceRef="startevent1" targetRef="usertask2"></sequenceFlow>
     <serviceTask id="sid-9DFC483F-2C57-4378-AE25-30460BD3838F" name="DefineGeoLocation" activiti:expression="${userComponentService.defineGeoLocation(user)}" activiti:resultVariableName="user"></serviceTask>
     <sequenceFlow id="flow8" sourceRef="usertask2" targetRef="sid-9DFC483F-2C57-4378-AE25-30460BD3838F"></sequenceFlow>
@@ -45,7 +56,7 @@
     <sequenceFlow id="flow28" sourceRef="signalintermediatecatchevent1" targetRef="servicetask4"></sequenceFlow>
     <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
       <timerEventDefinition>
-        <timeDuration>PT2M</timeDuration>
+        <timeDuration>PT15M</timeDuration>
       </timerEventDefinition>
     </intermediateCatchEvent>
     <sequenceFlow id="flow29" sourceRef="eventgateway1" targetRef="timerintermediatecatchevent1"></sequenceFlow>

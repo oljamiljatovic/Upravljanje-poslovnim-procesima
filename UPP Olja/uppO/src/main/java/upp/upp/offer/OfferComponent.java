@@ -4,12 +4,15 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -40,30 +43,33 @@ public class OfferComponent {
 	public String getRank(OfferDTO currentOffer, String processInstanceId) {
 		System.out.println("getRank");
 		RequestForFavour foundedRequest = requestForFavourService.findOne(currentOffer.getIdRequest());
-		
-		
 		HashMap<String, Object> variables=new HashMap<>();
-		//Task task = taskService.createTaskQuery().active().taskId(processInstanceId).list().get(0);
 		variables =(HashMap<String, Object>) runtimeService.getVariables(processInstanceId);
-		
 		
 		if(foundedRequest.getOffers().size() == 0) {
 			runtimeService.setVariable(processInstanceId, "rank", 1);
 			
 		}else {
 			runtimeService.setVariable(processInstanceId, "rank", 0);
-			
 		}
-		
+
 		return getUserFromSession().getId().toString();
-		
 		
 	}
 	
 	
 	
-	public void sendMailNotEnoughOffers(List<Offer> offers, RequestForFavour request, String instanceId){
+	public void sendMailNotEnoughOffers(List<Offer> offers, RequestForFavour request, String instanceId) throws MessagingException{
 		System.out.println("send mail not enough offers");
+		
+		MimeMessage message = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message, true);
+		helper.setFrom("isarestorani2@gmail.com");
+		helper.setTo(request.getUser().getEmail());
+		helper.setSubject("Registration request");
+		String text = "Za Vas zahtjev nije ponudjen broj ponuda koji ste trazili. Molimo Vas odlucite o nastavku procesa";
+		helper.setText(text);
+		//mailSender.send(message);
 	}
 
 	
